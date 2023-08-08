@@ -1,6 +1,7 @@
-from flask import Flask, jsonify, request
+from flask import Flask, Response, request
 from bs4 import BeautifulSoup
 import requests
+import json
 
 app = Flask(__name__)
 
@@ -29,7 +30,8 @@ def get_data():
         }
         data.append(record)
 
-    return jsonify(data)
+    response = Response(json.dumps(data, ensure_ascii=False), content_type="application/json; charset=utf-8")
+    return response
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)
